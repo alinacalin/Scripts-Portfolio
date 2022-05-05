@@ -1,2 +1,2 @@
 # Scripts-Portfolio
-A collection of scripts and code snippets in Bash, Python, C, Prolog
+A collection of scripts and code snippets in Bash, Python, C, Prolog, Lisp ...
