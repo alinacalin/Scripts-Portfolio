@@ -54,13 +54,13 @@ girls(Girls) :-
 	%      girl('Shirt','Name','Profession','Inspiration','Age','Juice')
 	length(Girls, 5),                                            
     nextToLeft(girl(_,jessie,_,_,_,_), girl(_,_,nurse,_,_,_), Girls),                               %  1
-	Girls=[_,girl(_,_,_,gma,_,_),_,_,_],                                                            %  2
-	member(girl(_,sabrina,_,_, 10,_), Girls),                                                       %  3
-	nextTo(girl(_,amy,_,_,_,_), girl(_,_,_,gma,_,_), Girls),                                        %  4
+    Girls=[_,girl(_,_,_,gma,_,_),_,_,_],                                                            %  2
+    member(girl(_,sabrina,_,_, 10,_), Girls),                                                       %  3
+    nextTo(girl(_,amy,_,_,_,_), girl(_,_,_,gma,_,_), Girls),                                        %  4
     nextToLeft(girl(green,_,_,_,_,_), girl(_,_,_,mother,_,grapefruit), Girls),                      %  5, 6
     Youngest=girl(_,_,_,_,8,_),
     nextTo(Youngest, girl(_,_,_,_,_,orange), Girls),                                                %  9
-	nextToLeft(girl(_,_,_, cousin,_,_), girl(red, _,_,_,_,_), Girls),                               % 10
+    nextToLeft(girl(_,_,_, cousin,_,_), girl(red, _,_,_,_,_), Girls),                               % 10
     Oldest=girl(_,_,_,_,12,_),
     nextTo(Oldest, girl(blue, _,_,_,_,_), Girls),                                                   % 11
     atAnyEnd(girl(_,_,_,_,_,cranberry), Girls),                                                     % 12
@@ -75,14 +75,27 @@ girls(Girls) :-
     somewhereBetween(girl(_,_,_,_,_,lemon), girl(red, _,_,_,_,_), girl(yellow,_, _,_,_,_), Girls),  % 17
     somewhereBetween(girl(_,_,_,_,_,lemon), girl(red, _,_,_,_,_), girl(_,amy, _,_,_,_), Girls),     %  7
     somewhereLeft(girl(red, _,_,_,_,_), girl(_,_,_,_,_, pineapple), Girls),                         %  8
-    member(girl(white,_,_,_,_,_), Girls),	                 % one girl has a white shirt
-    member(girl(_,helen,_,_,_,_), Girls),	                 % one is called Helen
-    member(girl(_,_,engineer,_,_,_), Girls),	             % one of them is engineer
-	member(girl(_,_,_,sister,_,_), Girls).		             % one of them is inspired by her sister
+    member(girl(white,_,_,_,_,_), Girls),	                                                    % one girl has a white shirt
+    member(girl(_,helen,_,_,_,_), Girls),	                                                    % one is called Helen
+    member(girl(_,_,engineer,_,_,_), Girls),	                                                    % one of them is engineer
+    member(girl(_,_,_,sister,_,_), Girls).		                                            % one of them is inspired by her sister
 
 
 sister_inspired(Girl) :-
 	girls(GirlsList),
 	member(girl(_,Girl,_,sister,_,_), GirlsList),!.
 
+/*
+Examples:
 
+girls(G).
+G = [girl(white,jessie,engineer,cousin,9,lemon), 
+     girl(red,lindy,nurse,gma,11,orange), 
+     girl(green,amy,journalist,aunt,8,pineapple), 
+     girl(blue,sabrina,teacher,mother,10,grapefruit), 
+     girl(yellow,helen,writer,sister,12,cranberry)]
+
+sister_inspired(Girl).
+Girl = helen
+
+*/
