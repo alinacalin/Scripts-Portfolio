@@ -3,8 +3,8 @@
 
 (defun f1 (n)
   (cond 
-      ((zerop n)  1 )
-      ( t (* n (f1 (- n 1)))  )
+      ((zerop n)  1                  )
+      ( t        (* n (f1 (- n 1)))  )
   )
 )
 
@@ -14,11 +14,12 @@
 
 (defun f2 ( n c)
  (cond
-    ((zerop n) c)
-    ( t (f2 (- n 1) (* n c)))
+    ((zerop n)  c                  )
+    ( t        (f2 (- n 1) (* n c)))
 )) 
 
 ;1. Define a function in Lisp which merges, without keeping the doubles, two sorted linear lists.
+; (1 2 4 6)   (2 3 5 7) =>  (1 2 3 4 5 6 7)
 
 ;mymerge(l1l2..ln, k1k2..km)={ l1l2..ln, m=0
 ;                            { k1k2..km, n=0
@@ -54,6 +55,8 @@
 )
 
 ;  3. Build a list with the positions of the minimum number from a linear list.  
+; (1 2 3 4 5 1 1 6 7 1)  => (1 6 7 10)
+;(1 2 3 4 0 5 1 1 6 7 1) =>  (5)
 
 ; minim(l1l2..ln, m)={m , if L=[]
 ;                    {minim(l2..ln, l1) , if l1<m
@@ -61,15 +64,19 @@
 
 
 ; minim(l1l2..ln, l1 ) (n>0, list is num)
+; mainMin = min(L, -1000000000)  ; min(L, l1)
 
-(defun minim2 ( l m)
+(defun minim ( l m)
   (cond
       ( (null l) m )
-      ( (< (car l) m)   (minim2 (cdr l) (car l)))
-      (  t              (minim2 (cdr l) m))
+      ( (< (car l) m)   (minim (cdr l) (car l)))
+      (  t              (minim (cdr l) m))
  )
 )
 
+(defun mainMin ( l)
+   (minim l (car l))
+)
 
 ;pos(l1l2..ln, e, p)={ [], if L=[]
 ;                    { p U pos(l2..ln, e, p+1)  , if l1=e
@@ -91,7 +98,7 @@
  (pos2 l (minim2 l (car l)) 1 )
 )
 
-
+; We can solve this with one go, meaning just one function:
 ;mainPos2( l1l2..ln, minC , posMinC,  p)=
 ;   {  posMinC , if n=0
 ;   {  mainPos2(l2..ln, minC, posMinC, p+1), if l1 is not a numerical atom 
