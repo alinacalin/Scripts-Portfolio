@@ -1,0 +1,247 @@
+<div class="notebook">
+
+<div class="nb-cell markdown" name="md2">
+Cumpute the sum of all elements in a list.
+</div>
+
+<div class="nb-cell html" name="htm2">
+<p> suma(l1l2...ln)= { 0,  if n=0 ,</p>
+<p> &nbsp;            { l1+ suma(l2...ln), otherwise ,</p>
+</div>
+
+<div class="nb-cell html" name="htm3">
+
+</div>
+
+<div class="nb-cell program" name="p1">
+%Cumpute the sum of all elements in a list.
+%suma(L -list, S - number)
+%flow (i, i)    (i,o)
+suma([],0).
+suma([H|T], S):-
+    suma(T,R),
+    S is H+R.
+</div>
+
+<div class="nb-cell query" name="q1">
+trace, (suma([1,2,3], R)).
+</div>
+
+<div class="nb-cell markdown" name="md1">
+The colector variable solution.
+</div>
+
+<div class="nb-cell html" name="htm4">
+<p> suma(l1l2...ln, Col)= { Col,  if n=0 </p>
+<p>                       { suma(l2...ln, Col + l1), otherwise ,</p>
+
+<p> Initial call: suma(l1l2...ln, 0) (Col is 0) </p>
+</div>
+
+<div class="nb-cell program" name="p3">
+%using collector variable
+%suma2(L-list, Col -collector, number; R - result sum (number))
+%flow(i,i,o)  (i,i,i)
+suma2([], Col, Col).
+suma2([H|T], Col, R):-
+    NCol is Col+H,
+    suma2(T, NCol, R).
+</div>
+
+<div class="nb-cell query" name="q2">
+trace, (suma2([1,2,3], 0, R)).
+</div>
+
+<div class="nb-cell html" name="htm1">
+
+</div>
+
+<div class="nb-cell markdown" name="md3">
+1. Compute number of occurrences of an element in a list.
+</div>
+
+<div class="nb-cell html" name="htm5">
+Without collector
+<p> nrOcc(l1l2...ln,e)= { 0 ,  if n=0 </p>
+<p>                     { 1+ nrOcc(l2...ln,e), if  l1=e ,</p>
+<p>                     { nrOcc(l2...ln,e), if  l1!=e (n&gt;0) ,</p>
+</div>
+
+<div class="nb-cell program" name="p2">
+%nrOcc(L -list, E -elem, R -number)
+%flow(i,i,o)  (i,i,i)
+nrOcc([], _ , 0).
+nrOcc([H|T], E, R1):-
+    H=E,
+    nrOcc(T,E,R),
+    R1 is R+1.
+nrOcc([H|T], E, R):-
+    H\=E,
+    nrOcc(T,E,R).
+</div>
+
+<div class="nb-cell query" name="q3">
+nrOcc([1,2,3,1,1], 1, N).
+</div>
+
+<div class="nb-cell html" name="htm6">
+With collector
+<p> nOC(l1l2...ln,e, C)= { C ,  if n=0 </p>
+<p>                     { nOC(l2...ln,e, C+1), if  l1=e ,</p>
+<p>                     { nOC(l2...ln,e, C), if  l1!=e (n&gt;0) ,</p>
+
+mainOC(L,E)= nOC(L,E,0)
+</div>
+
+<div class="nb-cell program" name="p4">
+%nOC(L-list, E-elem, C-number , R - number)
+%flow(i,i,i,o) (i,i,i,i)
+
+nOC([], _, C, C).
+nOC([E|T], E, C, R):-
+    C1 is C+1,
+    nOC(T,E,C1, R).
+nOC([H|T], E, C, R):-
+    H\=E,
+    nOC(T,E,C, R).
+
+mainOC(L,E,R):-nOC(L,E,0,R).
+</div>
+
+<div class="nb-cell query" name="q4">
+mainOC([1,2,3,1,1], 1, N).
+</div>
+
+<div class="nb-cell markdown" name="md4">
+Reverse a list with/without collector variable.
+[1,2,3,4]   =&gt; [4,3,2,1]
+</div>
+
+<div class="nb-cell html" name="htm7">
+Without collector
+<p> rev(l1l2...ln)= { [] ,  if n=0 </p>
+<p>                 { addEnd(rev(l2..ln), l1), otherwise ,</p>
+
+[1,4,5] -&gt; rev[4,5] U 1 -&gt; [5,4]U1 -&gt;[5,4,1]
+<p></p>
+With collector
+<p> rev2(l1l2...ln, c1c2..ck)= { c1c2..ck ,  if n=0 </p>
+<p>                 { rev2(l2..ln, l1 U c1c2..ck  ), otherwise ,</p>
+
+
+rev2([1,4,5], [])=&gt; rev2([4,5], [1]) =&gt; rev2([5], [4, 1] ) =&gt;
+rev2([], [5,4,1])= [5,4,1]
+</div>
+
+<div class="nb-cell program" name="p5">
+%rev2(L-list, C -list, R -list)
+%flow(i,i,o)  (i,i,i) (o,i,i)
+rev2([], R,R).
+rev2([H|T], C, R):-
+    rev2(T,[H|C],R).
+
+%flow (o,i,i)
+%rev2([], R, [])
+</div>
+
+<div class="nb-cell markdown" name="md5">
+Write a predicate to remove from a list all the elements that appear only once. For example:
+for [1,2,1,4,1,3,4] the result will be [1,1,4,1,4].
+</div>
+
+<div class="nb-cell html" name="htm8">
+Without collector
+<p> nrOcc(l1l2...ln,e)= { 0 ,  if n=0 </p>
+<p>                     { 1+ nrOcc(l2...ln,e), if  l1=e ,</p>
+<p>                     { nrOcc(l2...ln,e), if  l1!=e (n&gt;0) ,</p>
+Without collector
+<p> remove1(l1l2...ln, p1p2..pm)= { [] ,  if n=0 </p>
+<p>                     { remove1(l2..ln, p1p2..pm) , if nrOcc(p1p2..pm, l1)=1 </p>
+<p>                     { l1 U remove1 (l2..ln, p1p2..pm) , otherwise (nrOcc&gt;1) </p>
+
+mainR1(L)=remove1(L,L)
+</div>
+
+<div class="nb-cell program" name="p6">
+%nrOcc(L -list, E -elem, R -number)
+%flow(i,i,o)  (i,i,i)
+nrOcc([], _ , 0).
+nrOcc([H|T], E, R1):-
+    H=E,
+    nrOcc(T,E,R),
+    R1 is R+1.
+nrOcc([H|T], E, R):-
+    H\=E,
+    nrOcc(T,E,R).
+
+%remove1(L-list, CopyL -list, R -list)
+%flow(i,i,i) (i,i,o)
+remove1([], _, []).
+remove1([H|T], CopyL, R):-
+    nrOcc(CopyL, H, 1), % (  i,i,i )
+    remove1(T, CopyL, R).
+remove1([H|T], CopyL, [H|R]):-
+    nrOcc(CopyL, H, O), % (  i,i,o )
+    O&gt;1,
+    remove1(T, CopyL, R).
+
+mainR1(L,R):-remove1(L,L,R).
+</div>
+
+<div class="nb-cell query" name="q5">
+mainR1([1,2,1,4,1,3,4],R).
+</div>
+
+<div class="nb-cell html" name="htm9">
+With collector
+<p> nOC(l1l2...ln,e, C)= { C ,  if n=0 </p>
+<p>                     { nOC(l2...ln,e, C+1), if  l1=e ,</p>
+<p>                     { nOC(l2...ln,e, C), if  l1!=e (n&gt;0) ,</p>
+
+mainOC(L,E)= nOC(L,E,0)
+
+With collector
+<p> remove2(l1l2...ln, p1p2..pm, c1c2..ck)= { c1c2...ck ,  if n=0 </p>
+<p>                     { remove2(l2..ln, p1p2..pm, c1c2..ck) , if manOC(p1p2..pm, l1)=1 </p>
+<p>                     { remove2 (l2..ln, p1p2..pm, addEnd(c1c2..ck, l1)) , otherwise (nrOcc&gt;1) </p>
+
+mainR2(L)=remove2(L,L,[])
+</div>
+
+<div class="nb-cell program" name="p7">
+%list, element, res
+addEnd([],E,[E]).
+addEnd([H|T],E,[H|R]):-
+    addEnd(T,E,R).
+
+%nOC(L-list, E-elem, C-number , R - number)
+%flow(i,i,i,o) (i,i,i,i)
+nOC([], _, C, C).
+nOC([E|T], E, C, R):-
+    C1 is C+1,
+    nOC(T,E,C1, R).
+nOC([H|T], E, C, R):-
+    H\=E,
+    nOC(T,E,C, R).
+mainOC(L,E,R):-nOC(L,E,0,R).
+
+%remove2(L-list, Copy-List, C -list, R-list)
+%flow(i,i,i,o)  (i,i,i,i)
+remove2([],_,Col, Col).
+remove2([H|T], CopyL, Col, R):-
+    mainOC(CopyL, H, 1), %(  iii )
+    remove2(T, CopyL, Col, R).
+remove2([H|T], CopyL, Col, R):-
+    mainOC(CopyL, H, N), %(  iio )
+    N&gt;1,
+    addEnd(Col, H, Col1), 
+    remove2(T, CopyL, Col1, R).
+
+mainR2(L,R):-remove2(L,L,[],R).
+</div>
+
+<div class="nb-cell query" name="q6">
+mainR2([1,2,1,4,1,3,4],R).
+</div>
+
+</div>
