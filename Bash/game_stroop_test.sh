@@ -1,4 +1,5 @@
 #!/bin/bash
+#Copyright @ Alina 2022
 
 colorlist=("RED" "BLUE" "GREEN")
 fontlist=('\033[0;31m' '\033[0;34m' '\033[0;32m')
