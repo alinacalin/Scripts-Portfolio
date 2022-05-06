@@ -1,8 +1,5 @@
 #
-#
-# SinglyLinkedListNode:
-#     int data
-#     SinglyLinkedListNode next
+# Given two sprted lists as SingleLinkedListNode, merge them keeping the double values.
 #
 #
 def mergeLists(head1, head2):
