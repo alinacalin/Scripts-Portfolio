@@ -3,7 +3,7 @@
 
 colorlist=("RED" "BLUE" "GREEN")
 fontlist=('\033[0;31m' '\033[0;34m' '\033[0;32m')
-
+no_of_colors=${#colorlist[@]}
 
 # level 1 settings: todo implement more levels
 sec_per_word=2
@@ -11,6 +11,7 @@ sec_per_session=30
 
 points=0
 corr=""
+level=1
 
 NC='\033[0m' #No color to change back to neutral
 
@@ -25,8 +26,8 @@ function play_stroop(){
         printf '|%32.32s|' "Previous was: $corr "   "TOTAL: $points points"
         echo
         echo -e "\nIs the font color the same as the word meaning? Answer yes[y]/no[n].\n"
-        c=`expr $RANDOM % 3`
-        f=`expr $RANDOM % 3`
+        c=`expr $RANDOM % $no_of_colors`
+        f=`expr $RANDOM % $no_of_colors`
         printf  '%-20.20s'"       ${fontlist[$f]}${colorlist[$c]}${NC}   \n"
         echo -n ">>>"
         read -n1 -t 2 ans
@@ -129,6 +130,8 @@ function menu(){
                         sleep 1
                         echo -e "Go! \n"
                         sleep 1
+                        points=0
+                        corr=""
 
                         start=$SECONDS
                         while [ $(( SECONDS - start )) -lt $sec_per_session ]
