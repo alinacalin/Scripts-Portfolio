@@ -28,4 +28,6 @@ res = ''.join(res)
  
 # decode string by replacing special characters and/or space between alphanumeric words with only one space.
 x = re.sub(r"([a-zA-Z0-9]+)[!@#$%&\s]+(?=[a-zA-Z0-9]+)", r"\1 ", res)
+# use a group that matches a word, then any special character at least once, then lookaround assertion for another word but without consuming it, 
+# then and keep the first group and a space, leave the second word for a new matching attempt. 
 print(x)
