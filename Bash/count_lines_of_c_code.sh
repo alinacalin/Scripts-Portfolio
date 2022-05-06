@@ -7,9 +7,9 @@ then
     exit 1
 fi
 
-if [ ! -d $1 ]
+if [ ! -d $1 ] || [ ! -r $1 ]
 then
-    echo "The argument must be a valid directory."
+    echo "The argument must be a valid directory with read permissions."
     exit 1
 fi
 
