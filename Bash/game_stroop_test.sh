@@ -1,5 +1,8 @@
 #!/bin/bash
-#Copyright @ Alina 2022
+# Copyright @ Alina 2022
+# This scripts implements a simple version of the stroop test challenge as a game.
+# Your task is to identify if the font color matches the color described by the word.
+# And be really fast. 
 
 colorlist=("RED" "BLUE" "GREEN")
 fontlist=('\033[0;31m' '\033[0;34m' '\033[0;32m')
