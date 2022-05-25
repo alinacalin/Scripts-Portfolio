@@ -19,3 +19,5 @@ func Sqrt(x float64) float64 {
 func main() {
 	fmt.Println("The square root of 66 is ", Sqrt(66))
 }
+
+// to run the program in terminal, type:  go run square_root.go
