@@ -1,3 +1,5 @@
+; This is a collection of Lisp programs with cprrecsponding mathemathical models.
+
 ; fact(n)={ 1, if n=0
 ;         { n* fact(n-1), otherwise
 
@@ -99,7 +101,7 @@
 )
 
 ; We can solve this with one go, meaning just one function:
-;mainPos2( l1l2..ln, minC , posMinC,  p)=
+;mainPos2( l1l2..ln, minC, posMinC, p)=
 ;   {  posMinC , if n=0
 ;   {  mainPos2(l2..ln, minC, posMinC, p+1), if l1 is not a numerical atom 
 ;   {  mainPos2(l2..ln, l1, [p], p+1) , if minC is a nonnumerial atom
@@ -107,7 +109,7 @@
 ;   {  mainPos2(l2..ln, l1, [p], p+1)  , if l1< minC
 ;   {  mainPos2(l2..ln, minC, posMinC, p+1) if l1> minC
 
-;    mainPos2(l1l2..ln, l1  ,[]  , 1)
+;    mainPos2(l1l2..ln, l1 , [], 1)
 
 ;(E 1 2 A 5 7 B 2 3 1 3 T 1 9)
 
