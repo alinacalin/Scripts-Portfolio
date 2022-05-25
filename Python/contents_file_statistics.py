@@ -10,7 +10,6 @@ import os
 SARCH_LIST = {'all', 'amd64', 'arm64', 'armel', 'armhf', 'i386',
               'mips64el', 'ppc64el', 's390x', 'source'}
 
-
 def parse(sarch):
 
     # Download the file
